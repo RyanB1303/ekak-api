@@ -12,116 +12,131 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/lembagas", type: :request do
+RSpec.describe '/api/v1/lembagas', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Lembaga. As you add validations to Lembaga, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    # skip("Add a hash of attributes valid for your model")
+    {
+      nama_lembaga: 'Lembaga A',
+      kode_lembaga: '01'
+    }
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+    # skip("Add a hash of attributes invalid for your model")
+    {
+      nama_lembaga: '',
+      kode_lembaga: ''
+    }
+  end
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
   # LembagasController, or in your router and rack
   # middleware. Be sure to keep this updated too.
-  let(:valid_headers) {
-    {}
-  }
+  let(:valid_headers) do
+    user = User.create(nip: '123456', email: 'user@test.com', password: '123456')
+    token = user.api_tokens.create
+    {
+      'Authorization': "Bearer #{token.token}"
+    }
+  end
 
-  describe "GET /index" do
-    it "renders a successful response" do
+  describe 'GET /index' do
+    it 'renders a successful response' do
       Lembaga.create! valid_attributes
-      get lembagas_url, headers: valid_headers, as: :json
+      get api_v1_lembagas_path, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
+  describe 'GET /show' do
+    it 'renders a successful response' do
       lembaga = Lembaga.create! valid_attributes
-      get lembaga_url(lembaga), as: :json
+      get api_v1_lembaga_path(lembaga), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Lembaga" do
-        expect {
-          post lembagas_url,
+  describe 'POST /create' do
+    context 'with valid parameters' do
+      it 'creates a new Lembaga' do
+        expect do
+          post api_v1_lembagas_path,
                params: { lembaga: valid_attributes }, headers: valid_headers, as: :json
-        }.to change(Lembaga, :count).by(1)
+        end.to change(Lembaga, :count).by(1)
       end
 
-      it "renders a JSON response with the new lembaga" do
-        post lembagas_url,
+      it 'renders a JSON response with the new lembaga' do
+        post api_v1_lembagas_path,
              params: { lembaga: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
-        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
 
-    context "with invalid parameters" do
-      it "does not create a new Lembaga" do
-        expect {
-          post lembagas_url,
+    context 'with invalid parameters' do
+      it 'does not create a new Lembaga' do
+        expect do
+          post api_v1_lembagas_path,
                params: { lembaga: invalid_attributes }, as: :json
-        }.to change(Lembaga, :count).by(0)
+        end.to change(Lembaga, :count).by(0)
       end
 
-      it "renders a JSON response with errors for the new lembaga" do
-        post lembagas_url,
+      it 'renders a JSON response with errors for the new lembaga' do
+        post api_v1_lembagas_path,
              params: { lembaga: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  describe 'PATCH /update' do
+    context 'with valid parameters' do
+      let(:new_attributes) do
+        {
+          nama_lembaga: 'Update lembaga'
+        }
+      end
 
-      it "updates the requested lembaga" do
+      it 'updates the requested lembaga' do
         lembaga = Lembaga.create! valid_attributes
-        patch lembaga_url(lembaga),
+        patch api_v1_lembaga_url(lembaga),
               params: { lembaga: new_attributes }, headers: valid_headers, as: :json
         lembaga.reload
-        skip("Add assertions for updated state")
+        update_response = JSON.parse(response.body).deep_symbolize_keys
+        expect(update_response[:nama_lembaga]).to eq(new_attributes[:nama_lembaga])
       end
 
-      it "renders a JSON response with the lembaga" do
+      it 'renders a JSON response with the lembaga' do
         lembaga = Lembaga.create! valid_attributes
-        patch lembaga_url(lembaga),
+        patch api_v1_lembaga_url(lembaga),
               params: { lembaga: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
 
-    context "with invalid parameters" do
-      it "renders a JSON response with errors for the lembaga" do
+    context 'with invalid parameters' do
+      it 'renders a JSON response with errors for the lembaga' do
         lembaga = Lembaga.create! valid_attributes
-        patch lembaga_url(lembaga),
+        patch api_v1_lembaga_url(lembaga),
               params: { lembaga: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
   end
 
-  describe "DELETE /destroy" do
-    it "destroys the requested lembaga" do
+  describe 'DELETE /destroy' do
+    it 'destroys the requested lembaga' do
       lembaga = Lembaga.create! valid_attributes
-      expect {
-        delete lembaga_url(lembaga), headers: valid_headers, as: :json
-      }.to change(Lembaga, :count).by(-1)
+      expect do
+        delete api_v1_lembaga_url(lembaga), headers: valid_headers, as: :json
+      end.to change(Lembaga, :count).by(-1)
     end
   end
 end

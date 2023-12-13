@@ -57,5 +57,6 @@ group :development do
 end
 
 gem 'clowne'
+gem 'devise'
 gem 'online_migrations'
 gem 'rails_performance'

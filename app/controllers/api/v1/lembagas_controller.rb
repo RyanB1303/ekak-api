@@ -1,51 +1,47 @@
-module Api
-  module V1
-    class LembagasController < ApplicationController
-      before_action :set_lembaga, only: %i[show update destroy]
+class Api::V1::LembagasController < Api::V1::AuthenticatedController
+  before_action :set_lembaga, only: %i[show update destroy]
 
-      def index
-        @lembagas = Lembaga.all
+  def index
+    @lembagas = Lembaga.all
 
-        render json: @lembagas
-      end
+    render json: @lembagas
+  end
 
-      def show
-        render json: @lembaga
-      end
+  def show
+    render json: @lembaga
+  end
 
-      def create
-        @lembaga = Lembaga.new(lembaga_params)
+  def create
+    @lembaga = Lembaga.new(lembaga_params)
 
-        if @lembaga.save
-          render json: @lembaga, status: :created, location: @lembaga
-        else
-          render json: @lembaga.errors, status: :unprocessable_entity
-        end
-      end
-
-      def update
-        if @lembaga.update(lembaga_params)
-          render json: @lembaga
-        else
-          render json: @lembaga.errors, status: :unprocessable_entity
-        end
-      end
-
-      def destroy
-        @lembaga.destroy!
-      end
-
-      private
-
-      # Use callbacks to share common setup or constraints between actions.
-      def set_lembaga
-        @lembaga = Lembaga.find(params[:id])
-      end
-
-      # Only allow a list of trusted parameters through.
-      def lembaga_params
-        params.require(:lembaga).permit(:nama_lembaga, :kode_lembaga, :status)
-      end
+    if @lembaga.save
+      render json: @lembaga, status: :created, location: api_v1_lembaga_path(@lembaga)
+    else
+      render json: @lembaga.errors, status: :unprocessable_entity
     end
+  end
+
+  def update
+    if @lembaga.update(lembaga_params)
+      render json: @lembaga
+    else
+      render json: @lembaga.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @lembaga.destroy!
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lembaga
+    @lembaga = Lembaga.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def lembaga_params
+    params.require(:lembaga).permit(:nama_lembaga, :kode_lembaga, :status)
   end
 end
