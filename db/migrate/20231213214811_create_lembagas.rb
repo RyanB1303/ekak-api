@@ -3,7 +3,7 @@ class CreateLembagas < ActiveRecord::Migration[7.1]
     create_table :lembagas do |t|
       t.string :nama_lembaga
       t.string :kode_lembaga
-      t.boolean :status
+      t.boolean :status, default: true
 
       t.timestamps
     end

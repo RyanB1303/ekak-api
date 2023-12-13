@@ -57,7 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_13_215217) do
   create_table "lembagas", force: :cascade do |t|
     t.string "nama_lembaga"
     t.string "kode_lembaga"
-    t.boolean "status"
+    t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
