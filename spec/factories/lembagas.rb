@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :lembaga do
-    nama_lembaga { "MyString" }
-    kode_lembaga { "MyString" }
-    status { false }
+    nama_lembaga { 'Kota A' }
+    kode_lembaga { 'xxx' }
+    active { true }
   end
 end
