@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tahuns
   resources :periodes
   resources :opds
   devise_for :users, controllers: {
