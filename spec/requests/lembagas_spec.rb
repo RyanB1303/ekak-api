@@ -39,10 +39,7 @@ RSpec.describe '/api/v1/lembagas', type: :request do
   let(:valid_headers) do
     # user = User.create(nip: '123456789012345678', email: 'user@test.com', password: '123456')
     user = create(:user)
-    token = user.api_tokens.create
-    {
-      'Authorization': "Bearer #{token.token}"
-    }
+    sign_in user
   end
 
   describe 'GET /index' do
