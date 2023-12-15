@@ -15,6 +15,7 @@
 #
 class Tujuan < ApplicationRecord
   belongs_to :tujuanable, polymorphic: true
+  has_many :indikators, as: :indikatorable
 
   validates :tujuan, presence: true, length: { minimum: 10 }
 end

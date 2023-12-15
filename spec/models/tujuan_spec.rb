@@ -17,6 +17,7 @@ require 'rails_helper'
 
 RSpec.describe Tujuan, type: :model do
   it { should belong_to :tujuanable }
+  it { should have_many :indikators }
   it { should validate_presence_of :tujuan }
   it { should validate_length_of(:tujuan).is_at_least(10) }
 end
