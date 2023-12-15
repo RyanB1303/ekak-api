@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_15_152301) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_15_152847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_152301) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["indikatorable_type", "indikatorable_id"], name: "index_indikators_on_indikatorable"
+  end
+
+  create_table "kegiatans", force: :cascade do |t|
+    t.string "kegiatan"
+    t.string "kode_kegiatan"
+    t.string "keterangan"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "lembagas", force: :cascade do |t|
