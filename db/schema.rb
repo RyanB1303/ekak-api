@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_15_142407) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_15_145149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_142407) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["migration_name", "arguments"], name: "index_background_migrations_on_unique_configuration", unique: true
+  end
+
+  create_table "indikators", force: :cascade do |t|
+    t.string "indikator"
+    t.string "indikatorable_type"
+    t.bigint "indikatorable_id"
+    t.string "keterangan"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["indikatorable_type", "indikatorable_id"], name: "index_indikators_on_indikatorable"
   end
 
   create_table "lembagas", force: :cascade do |t|
