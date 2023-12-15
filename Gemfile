@@ -58,5 +58,6 @@ end
 
 gem 'clowne'
 gem 'devise'
+gem 'devise-jwt'
 gem 'online_migrations'
 gem 'rails_performance'

@@ -8,6 +8,7 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  failed_attempts        :integer          default(0), not null
+#  jti                    :string           not null
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
 #  locked_at              :datetime
@@ -23,17 +24,24 @@
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_jti                   (jti) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 class User < ApplicationRecord
+  include Devise::JWT::RevocationStrategies::JTIMatcher
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: self
   attr_writer :login
 
   has_many :api_tokens
+
+  validates :nip, presence: true, length: { is: 18 }
+  validates :email, presence: true
 
   def login
     @login || nip || email
@@ -47,5 +55,9 @@ class User < ApplicationRecord
     elsif conditions.key?(:nip) || conditions.key?(:email)
       where(conditions.to_h).first
     end
+  end
+
+  def jwt_payload
+    super
   end
 end

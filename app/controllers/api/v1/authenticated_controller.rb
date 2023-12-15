@@ -1,5 +1,5 @@
 class Api::V1::AuthenticatedController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate_user!
   rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
 
   attr_reader :current_api_token, :current_user

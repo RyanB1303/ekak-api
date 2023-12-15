@@ -37,7 +37,8 @@ RSpec.describe '/api/v1/lembagas', type: :request do
   # LembagasController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    user = User.create(nip: '123456', email: 'user@test.com', password: '123456')
+    # user = User.create(nip: '123456789012345678', email: 'user@test.com', password: '123456')
+    user = create(:user)
     token = user.api_tokens.create
     {
       'Authorization': "Bearer #{token.token}"
