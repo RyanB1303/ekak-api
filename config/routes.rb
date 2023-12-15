@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :urusans
   resources :indikators
   resources :tujuans
   resources :tahuns
