@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :subkegiatans
   resources :kegiatans
   resources :programs
   resources :bidang_urusans
