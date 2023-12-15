@@ -20,6 +20,7 @@
 #
 class Opd < ApplicationRecord
   belongs_to :lembaga
+  has_many :tujuans, as: :tujuanable
 
   validates :nama_opd, presence: true
   validates :kode_opd, presence: true

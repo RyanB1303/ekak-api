@@ -10,5 +10,7 @@
 #  updated_at   :datetime         not null
 #
 class Lembaga < ApplicationRecord
+  has_many :tujuans, as: :tujuanable
+
   validates :nama_lembaga, presence: true
 end

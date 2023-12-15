@@ -12,5 +12,6 @@
 require 'rails_helper'
 
 RSpec.describe Lembaga, type: :model do
+  it { should have_many :tujuans }
   it { should validate_presence_of(:nama_lembaga) }
 end

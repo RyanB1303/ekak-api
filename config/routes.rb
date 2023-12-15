@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tujuans
   resources :tahuns
   resources :periodes
   resources :opds
