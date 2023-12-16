@@ -1,21 +1,24 @@
 Rails.application.routes.draw do
-  resources :subkegiatans
-  resources :kegiatans
-  resources :programs
-  resources :bidang_urusans
-  resources :urusans
-  resources :indikators
-  resources :tujuans
-  resources :tahuns
-  resources :periodes
-  resources :opds
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
   namespace :api do
     namespace :v1 do
+      resources :strategis
       resources :lembagas
+      resources :subkegiatans
+      resources :kegiatans
+      resources :programs
+      resources :bidang_urusans
+      resources :urusans
+      resources :indikators
+      resources :tujuans
+      resources :tahuns
+      resources :periodes
+      resources :opds
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
