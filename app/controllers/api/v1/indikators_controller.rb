@@ -1,4 +1,4 @@
-class IndikatorsController < ApplicationController
+class Api::V1::IndikatorsController < ApplicationController
   before_action :set_indikator, only: %i[show update destroy]
 
   # GET /indikators
@@ -18,7 +18,7 @@ class IndikatorsController < ApplicationController
     @indikator = Indikator.new(indikator_params)
 
     if @indikator.save
-      render json: @indikator, status: :created, location: @indikator
+      render json: @indikator, status: :created, location: [:api, :v1, @indikator]
     else
       render json: @indikator.errors, status: :unprocessable_entity
     end

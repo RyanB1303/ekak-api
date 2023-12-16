@@ -1,5 +1,5 @@
-class SubkegiatansController < ApplicationController
-  before_action :set_subkegiatan, only: %i[ show update destroy ]
+class Api::V1::SubkegiatansController < ApplicationController
+  before_action :set_subkegiatan, only: %i[show update destroy]
 
   # GET /subkegiatans
   def index
@@ -18,7 +18,7 @@ class SubkegiatansController < ApplicationController
     @subkegiatan = Subkegiatan.new(subkegiatan_params)
 
     if @subkegiatan.save
-      render json: @subkegiatan, status: :created, location: @subkegiatan
+      render json: @subkegiatan, status: :created, location: [:api, :v1, @subkegiatan]
     else
       render json: @subkegiatan.errors, status: :unprocessable_entity
     end
@@ -39,13 +39,14 @@ class SubkegiatansController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_subkegiatan
-      @subkegiatan = Subkegiatan.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def subkegiatan_params
-      params.require(:subkegiatan).permit(:subkegiatan, :kode_subkegiatan, :keterangan, :active)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_subkegiatan
+    @subkegiatan = Subkegiatan.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def subkegiatan_params
+    params.require(:subkegiatan).permit(:subkegiatan, :kode_subkegiatan, :keterangan, :active)
+  end
 end

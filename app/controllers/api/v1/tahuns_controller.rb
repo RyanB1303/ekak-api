@@ -1,5 +1,5 @@
-class TahunsController < ApplicationController
-  before_action :set_tahun, only: %i[ show update destroy ]
+class Api::V1::TahunsController < ApplicationController
+  before_action :set_tahun, only: %i[show update destroy]
 
   # GET /tahuns
   def index
@@ -18,7 +18,7 @@ class TahunsController < ApplicationController
     @tahun = Tahun.new(tahun_params)
 
     if @tahun.save
-      render json: @tahun, status: :created, location: @tahun
+      render json: @tahun, status: :created, location: [:api, :v1, @tahun]
     else
       render json: @tahun.errors, status: :unprocessable_entity
     end
@@ -39,13 +39,14 @@ class TahunsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tahun
-      @tahun = Tahun.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def tahun_params
-      params.require(:tahun).permit(:tahun, :kelompok_anggaran, :keterangan, :periode_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tahun
+    @tahun = Tahun.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def tahun_params
+    params.require(:tahun).permit(:tahun, :kelompok_anggaran, :keterangan, :periode_id)
+  end
 end

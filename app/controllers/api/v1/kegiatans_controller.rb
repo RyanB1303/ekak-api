@@ -1,5 +1,5 @@
-class KegiatansController < ApplicationController
-  before_action :set_kegiatan, only: %i[ show update destroy ]
+class Api::V1::KegiatansController < ApplicationController
+  before_action :set_kegiatan, only: %i[show update destroy]
 
   # GET /kegiatans
   def index
@@ -18,7 +18,7 @@ class KegiatansController < ApplicationController
     @kegiatan = Kegiatan.new(kegiatan_params)
 
     if @kegiatan.save
-      render json: @kegiatan, status: :created, location: @kegiatan
+      render json: @kegiatan, status: :created, location: [:api, :v1, @kegiatan]
     else
       render json: @kegiatan.errors, status: :unprocessable_entity
     end
@@ -39,13 +39,14 @@ class KegiatansController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_kegiatan
-      @kegiatan = Kegiatan.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def kegiatan_params
-      params.require(:kegiatan).permit(:kegiatan, :kode_kegiatan, :keterangan, :active)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_kegiatan
+    @kegiatan = Kegiatan.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def kegiatan_params
+    params.require(:kegiatan).permit(:kegiatan, :kode_kegiatan, :keterangan, :active)
+  end
 end

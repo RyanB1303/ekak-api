@@ -1,5 +1,5 @@
-class OpdsController < ApplicationController
-  before_action :set_opd, only: %i[ show update destroy ]
+class Api::V1::OpdsController < ApplicationController
+  before_action :set_opd, only: %i[show update destroy]
 
   # GET /opds
   def index
@@ -18,7 +18,7 @@ class OpdsController < ApplicationController
     @opd = Opd.new(opd_params)
 
     if @opd.save
-      render json: @opd, status: :created, location: @opd
+      render json: @opd, status: :created, location: [:api, :v1, @opd]
     else
       render json: @opd.errors, status: :unprocessable_entity
     end
@@ -39,13 +39,14 @@ class OpdsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_opd
-      @opd = Opd.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def opd_params
-      params.require(:opd).permit(:nama_opd, :kode_opd, :active, :lembaga_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_opd
+    @opd = Opd.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def opd_params
+    params.require(:opd).permit(:nama_opd, :kode_opd, :active, :lembaga_id)
+  end
 end

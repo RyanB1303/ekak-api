@@ -45,7 +45,7 @@ RSpec.describe '/opds', type: :request do
   describe 'GET /index' do
     it 'renders a successful response' do
       Opd.create! valid_attributes
-      get opds_url, headers: valid_headers, as: :json
+      get api_v1_opds_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe '/opds', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       opd = Opd.create! valid_attributes
-      get opd_url(opd), as: :json
+      get api_v1_opd_url(opd), as: :json
       expect(response).to be_successful
     end
   end
@@ -62,13 +62,13 @@ RSpec.describe '/opds', type: :request do
     context 'with valid parameters' do
       it 'creates a new Opd' do
         expect do
-          post opds_url,
+          post api_v1_opds_url,
                params: { opd: valid_attributes }, headers: valid_headers, as: :json
         end.to change(Opd, :count).by(1)
       end
 
       it 'renders a JSON response with the new opd' do
-        post opds_url,
+        post api_v1_opds_url,
              params: { opd: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -78,13 +78,13 @@ RSpec.describe '/opds', type: :request do
     context 'with invalid parameters' do
       it 'does not create a new Opd' do
         expect do
-          post opds_url,
+          post api_v1_opds_url,
                params: { opd: invalid_attributes }, as: :json
         end.to change(Opd, :count).by(0)
       end
 
       it 'renders a JSON response with errors for the new opd' do
-        post opds_url,
+        post api_v1_opds_url,
              params: { opd: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -102,7 +102,7 @@ RSpec.describe '/opds', type: :request do
 
       it 'updates the requested opd' do
         opd = Opd.create! valid_attributes
-        patch opd_url(opd),
+        patch api_v1_opd_url(opd),
               params: { opd: new_attributes }, headers: valid_headers, as: :json
         opd.reload
         expect(opd.nama_opd).to eq('update_opd')
@@ -112,7 +112,7 @@ RSpec.describe '/opds', type: :request do
 
       it 'renders a JSON response with the opd' do
         opd = Opd.create! valid_attributes
-        patch opd_url(opd),
+        patch api_v1_opd_url(opd),
               params: { opd: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -122,7 +122,7 @@ RSpec.describe '/opds', type: :request do
     context 'with invalid parameters' do
       it 'renders a JSON response with errors for the opd' do
         opd = Opd.create! valid_attributes
-        patch opd_url(opd),
+        patch api_v1_opd_url(opd),
               params: { opd: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -134,7 +134,7 @@ RSpec.describe '/opds', type: :request do
     it 'destroys the requested opd' do
       opd = Opd.create! valid_attributes
       expect do
-        delete opd_url(opd), headers: valid_headers, as: :json
+        delete api_v1_opd_url(opd), headers: valid_headers, as: :json
       end.to change(Opd, :count).by(-1)
     end
   end
