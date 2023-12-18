@@ -41,6 +41,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'rswag-specs'
   gem 'shoulda-matchers', '~> 5.0'
 end
 
@@ -61,3 +62,5 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'online_migrations'
 gem 'rails_performance'
+gem 'rswag-api'
+gem 'rswag-ui'
