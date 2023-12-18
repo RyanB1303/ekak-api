@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_18_021743) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_18_023246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "anggarans", force: :cascade do |t|
+    t.string "kode"
+    t.text "uraian"
+    t.decimal "total", default: "0.0"
+    t.integer "tahun"
+    t.string "keterangan"
+    t.string "anggaranable_type"
+    t.bigint "anggaranable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["anggaranable_type", "anggaranable_id"], name: "index_anggarans_on_anggaranable"
+  end
 
   create_table "api_tokens", force: :cascade do |t|
     t.bigint "user_id", null: false
