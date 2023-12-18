@@ -16,6 +16,7 @@
 #
 class Indikator < ApplicationRecord
   belongs_to :indikatorable, polymorphic: true
+  has_many :targets, as: :targetable
 
   validates :indikator, presence: true
 end

@@ -19,4 +19,5 @@ require 'rails_helper'
 RSpec.describe Indikator, type: :model do
   it { should belong_to :indikatorable }
   it { should validate_presence_of :indikator }
+  it { should have_many :targets }
 end
