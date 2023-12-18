@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_15_153346) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_18_021743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -145,6 +145,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_153346) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["periode_id"], name: "index_tahuns_on_periode_id"
+  end
+
+  create_table "targets", force: :cascade do |t|
+    t.decimal "target"
+    t.string "satuan"
+    t.integer "tahun"
+    t.string "versi"
+    t.string "keterangan"
+    t.string "targetable_type"
+    t.bigint "targetable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["targetable_type", "targetable_id"], name: "index_targets_on_targetable"
   end
 
   create_table "tujuans", force: :cascade do |t|
