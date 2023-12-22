@@ -19,4 +19,5 @@
 #
 class Tematik < ApplicationRecord
   belongs_to :tahun
+  has_many :pohons, as: :pohonable
 end
