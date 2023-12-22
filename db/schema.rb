@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_18_023246) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_22_074257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -132,6 +132,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_18_023246) do
     t.index ["lembaga_id"], name: "index_periodes_on_lembaga_id"
   end
 
+  create_table "pohons", force: :cascade do |t|
+    t.string "role"
+    t.string "pohonable_type"
+    t.bigint "pohonable_id"
+    t.string "keterangan"
+    t.integer "level", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pohonable_type", "pohonable_id"], name: "index_pohons_on_pohonable"
+  end
+
   create_table "programs", force: :cascade do |t|
     t.string "program"
     t.string "kode_program"
@@ -171,6 +182,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_18_023246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["targetable_type", "targetable_id"], name: "index_targets_on_targetable"
+  end
+
+  create_table "tematiks", force: :cascade do |t|
+    t.string "tematik"
+    t.string "keterangan"
+    t.bigint "tahun_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tahun_id"], name: "index_tematiks_on_tahun_id"
   end
 
   create_table "tujuans", force: :cascade do |t|
@@ -219,4 +239,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_18_023246) do
   add_foreign_key "opds", "lembagas"
   add_foreign_key "periodes", "lembagas"
   add_foreign_key "tahuns", "periodes"
+  add_foreign_key "tematiks", "tahuns"
 end
