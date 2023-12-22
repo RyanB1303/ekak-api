@@ -9,11 +9,17 @@
 #  role           :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  parent_id      :bigint
 #  pohonable_id   :bigint
 #
 # Indexes
 #
+#  index_pohons_on_parent_id  (parent_id)
 #  index_pohons_on_pohonable  (pohonable_type,pohonable_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (parent_id => pohons.id)
 #
 FactoryBot.define do
   factory :pohon do
