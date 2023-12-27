@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_22_105148) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_27_010106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -192,6 +192,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_22_105148) do
     t.bigint "tahun_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "parent_id"
+    t.index ["parent_id"], name: "index_tematiks_on_parent_id"
     t.index ["tahun_id"], name: "index_tematiks_on_tahun_id"
   end
 
@@ -243,4 +245,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_22_105148) do
   add_foreign_key "pohons", "pohons", column: "parent_id"
   add_foreign_key "tahuns", "periodes"
   add_foreign_key "tematiks", "tahuns"
+  add_foreign_key "tematiks", "tematiks", column: "parent_id"
 end
