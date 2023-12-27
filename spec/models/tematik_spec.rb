@@ -54,12 +54,24 @@ RSpec.describe Tematik, type: :model do
 
   context 'auto generate jenis and level' do
     let(:tahun) { create(:tahun, tahun: 2025) }
-    it 'should level for each childs' do
+    it 'should generate level for each childs' do
       parent = create(:tematik, tahun: tahun)
-      child1 = Tematik.create(tematik: 'child tema 1', parent: parent, tahun: tahun)
+      child1 = Tematik.create(tematik: 'child level 1', parent: parent, tahun: tahun)
       child2 = Tematik.create(tematik: 'child level 2', parent: child1, tahun: tahun)
       expect(child1.level).to eq(1)
       expect(child2.level).to eq(2)
+    end
+    it 'should generate jenis for each childs' do
+      # level | jenis
+      # 0   => 'Tematik'
+      # 1   => 'SubTematik'
+      # 2   => 'SubSubTematik'
+      parent = create(:tematik, tahun: tahun)
+      child1 = Tematik.create(tematik: 'SubTematik 1', parent: parent, tahun: tahun)
+      child2 = Tematik.create(tematik: 'SubSubTematik 1', parent: child1, tahun: tahun)
+      expect(parent.jenis).to eq('Tematik')
+      expect(child1.jenis).to eq('SubTematik')
+      expect(child2.jenis).to eq('SubSubTematik')
     end
   end
 end

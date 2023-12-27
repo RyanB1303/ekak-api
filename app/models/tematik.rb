@@ -33,12 +33,29 @@ class Tematik < ApplicationRecord
 
   # if tematik validation pass
   after_validation :generate_level
+  after_validation :generate_jenis
 
   def generate_level
     self.level = if parent_id.blank?
                    0
                  else
                    parent.level + 1
+                 end
+  end
+
+  # map level - jenis
+  # level | jenis
+  # 0   => 'Tematik'
+  # 1   => 'SubTematik'
+  # 2   => 'SubSubTematik'
+  def generate_jenis
+    self.jenis = case level
+                 when 0
+                   'Tematik'
+                 when 1
+                   'SubTematik'
+                 else
+                   'SubSubTematik'
                  end
   end
 end
