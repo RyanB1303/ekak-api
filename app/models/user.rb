@@ -39,23 +39,23 @@ class User < ApplicationRecord
 
   has_many :api_tokens
 
-  has_one :profile
+  has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
 
   validates :nip, presence: true, length: { is: 18 }
   validates :email, presence: true
 
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    if (login = conditions.delete(:login))
-      where(conditions.to_h).where(['lower(nip) = :value OR lower(email) = :value',
-                                    { value: login.downcase }]).first
-    elsif conditions.key?(:nip) || conditions.key?(:email)
-      where(conditions.to_h).first
-    end
-  end
+  # def self.find_for_database_authentication(warden_conditions)
+  #   conditions = warden_conditions.dup
+  #   if (login = conditions.delete(:login))
+  #     where(conditions.to_h).where(['lower(nip) = :value OR lower(email) = :value',
+  #                                   { value: login.downcase }]).first
+  #   elsif conditions.key?(:nip) || conditions.key?(:email)
+  #     where(conditions.to_h).first
+  #   end
+  # end
 
-  def jwt_payload
-    super
-  end
+  # def jwt_payload
+  #   super
+  # end
 end
