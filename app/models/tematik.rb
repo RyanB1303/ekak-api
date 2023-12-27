@@ -20,4 +20,7 @@
 class Tematik < ApplicationRecord
   belongs_to :tahun
   has_many :pohons, as: :pohonable
+
+  validates_presence_of :tematik
+  validates_length_of :tematik, minimum: 5
 end
