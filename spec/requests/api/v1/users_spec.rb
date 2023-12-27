@@ -18,11 +18,9 @@ RSpec.describe '/api/v1/users', type: :request do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     {
-      nip: '123456789012345678',
+      nip: '425831023498077068',
       email: 'test@test.com',
-      profile: {
-        nama: 'test nama'
-      }
+      password: '12345678'
     }
   end
 
@@ -62,13 +60,13 @@ RSpec.describe '/api/v1/users', type: :request do
       it 'creates a new User' do
         expect do
           post api_v1_users_url,
-               params: { api_v1_user: valid_attributes }, headers: valid_headers, as: :json
+               params: { user: valid_attributes }, headers: valid_headers, as: :json
         end.to change(User, :count).by(1)
       end
 
       it 'renders a JSON response with the new api_v1_user' do
         post api_v1_users_url,
-             params: { api_v1_user: valid_attributes }, headers: valid_headers, as: :json
+             params: { user: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -78,13 +76,13 @@ RSpec.describe '/api/v1/users', type: :request do
       it 'does not create a new User' do
         expect do
           post api_v1_users_url,
-               params: { api_v1_user: invalid_attributes }, as: :json
+               params: { user: invalid_attributes }, as: :json
         end.to change(User, :count).by(0)
       end
 
       it 'renders a JSON response with errors for the new api_v1_user' do
         post api_v1_users_url,
-             params: { api_v1_user: invalid_attributes }, headers: valid_headers, as: :json
+             params: { user: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -94,21 +92,23 @@ RSpec.describe '/api/v1/users', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        {
+          email: 'email@test.com'
+        }
       end
 
-      it 'updates the requested api_v1_user' do
+      it 'updates profile the requested api_v1_user' do
         user = User.create! valid_attributes
         patch api_v1_user_url(user),
-              params: { api_v1_user: new_attributes }, headers: valid_headers, as: :json
+              params: { user: new_attributes }, headers: valid_headers, as: :json
         user.reload
-        skip('Add assertions for updated state')
+        expect(user.email).to eq('email@test.com')
       end
 
       it 'renders a JSON response with the api_v1_user' do
         user = User.create! valid_attributes
         patch api_v1_user_url(user),
-              params: { api_v1_user: new_attributes }, headers: valid_headers, as: :json
+              params: { user: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -118,7 +118,7 @@ RSpec.describe '/api/v1/users', type: :request do
       it 'renders a JSON response with errors for the api_v1_user' do
         user = User.create! valid_attributes
         patch api_v1_user_url(user),
-              params: { api_v1_user: invalid_attributes }, headers: valid_headers, as: :json
+              params: { user: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
