@@ -26,27 +26,25 @@ require 'rails_helper'
 RSpec.describe Pohon, type: :model do
   it { should belong_to :pohonable }
 
-  it 'should create pohon tematik with level 0' do
-    tematik = create(:tematik)
-    pohon = Pohon.create(keterangan: 'Test Pohon',
-                         pohonable_id: tematik.id,
-                         pohonable_type: 'Tematik')
-    expect(pohon.level).to eq(0)
-  end
+  context 'parent child pohon' do
+    let(:tematik) { create(:tematik) }
+    let(:sub_tematik) { create(:tematik, parent: tematik) }
 
-  it 'should create nested pohon' do
-    tematik = create(:tematik)
-    second_tematik = create(:tematik)
-    pohon_top = Pohon.create(pohonable_type: 'Tematik',
-                             pohonable_id: tematik.id,
-                             role: 'tematik-kota')
-    pohon_bottom = Pohon.create(pohonable_type: 'Tematik',
-                                pohonable_id: second_tematik.id,
-                                role: 'tematik-kota',
-                                parent_id: pohon_top.id)
+    it 'should create childs self referential' do
+      pohon_parent = Pohon.create(pohonable_type: 'Tematik',
+                                  pohonable_id: tematik.id,
+                                  role: 'tematik-kota')
+      pohon_childs = [Pohon.create(pohonable_type: 'Tematik',
+                                   pohonable_id: sub_tematik.id,
+                                   role: 'subtematik-kota',
+                                   parent: pohon_parent),
+                      Pohon.create(pohonable_type: 'Tematik',
+                                   pohonable_id: sub_tematik.id,
+                                   role: 'subtematik-kota',
+                                   parent: pohon_parent)]
 
-    expect(pohon_top.childs).to include(pohon_bottom)
-    expect(pohon_bottom.parent).to eq(pohon_top)
+      expect(pohon_parent.childs).to eq(pohon_childs)
+    end
   end
 
   context 'auto generate level of pohon' do

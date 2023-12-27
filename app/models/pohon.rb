@@ -22,7 +22,10 @@
 #  fk_rails_...  (parent_id => pohons.id)
 #
 class Pohon < ApplicationRecord
+  belongs_to :parent, class_name: 'Pohon', optional: true
+
   has_many :childs, class_name: 'Pohon',
+                    primary_key: :id,
                     foreign_key: :parent_id
 
   belongs_to :pohonable, polymorphic: true
