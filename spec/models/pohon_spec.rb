@@ -66,12 +66,12 @@ RSpec.describe Pohon, type: :model do
   end
 
   context 'auto generate role pohon' do
-    pending
     let(:tematik) { create(:tematik) }
     it 'generate role by level and opd id' do
       pohon = Pohon.create(pohonable_type: 'Tematik',
                            pohonable_id: tematik.id)
 
+      pending
       expect(pohon.role).to eq('pohon-kota-level-0')
     end
   end
