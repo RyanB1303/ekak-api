@@ -30,4 +30,15 @@ class Tematik < ApplicationRecord
 
   validates_presence_of :tematik
   validates_length_of :tematik, minimum: 5
+
+  # if tematik validation pass
+  after_validation :generate_level
+
+  def generate_level
+    self.level = if parent_id.blank?
+                   0
+                 else
+                   parent.level + 1
+                 end
+  end
 end
