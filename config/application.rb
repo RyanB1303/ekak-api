@@ -51,7 +51,8 @@ module EkakApi
         origins '*'
         resource '*',
                  headers: :any,
-                 methods: %i[get post options]
+                 methods: %i[get post options],
+                 expose: %w[Authorization]
       end
     end
   end
