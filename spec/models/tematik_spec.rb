@@ -3,7 +3,9 @@
 # Table name: tematiks
 #
 #  id         :bigint           not null, primary key
+#  jenis      :string
 #  keterangan :string
+#  level      :integer          default(0)
 #  tematik    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -34,16 +36,16 @@ RSpec.describe Tematik, type: :model do
     let(:tahun) { create(:tahun, tahun: 2025) }
     it 'should list all childs' do
       parent = create(:tematik, tahun: tahun)
-      childs = [Tematik.create(tematik: 'child tema 1', parent: parent, tahun: tahun),
-                Tematik.create(tematik: 'child tema 2', parent: parent, tahun: tahun)]
+      childs = [Tematik.create(tematik: 'child tema 1', parent: parent, tahun: tahun, level: 1, jenis: 'SubTematik'),
+                Tematik.create(tematik: 'child tema 2', parent: parent, tahun: tahun, level: 1, jenis: 'SubSubTematik')]
 
       expect(parent.childs).to eq(childs)
     end
 
     it 'can nest parent-childs' do
       parent = create(:tematik, tahun: tahun)
-      child1 = Tematik.create(tematik: 'child level 1', parent: parent, tahun: tahun)
-      child2 = Tematik.create(tematik: 'child level 2', parent: child1, tahun: tahun)
+      child1 = Tematik.create(tematik: 'child level 1', parent: parent, tahun: tahun, level: 1, jenis: 'SubTematik')
+      child2 = Tematik.create(tematik: 'child level 2', parent: child1, tahun: tahun, level: 2, jenis: 'SubSubTematik')
 
       expect(parent.childs).to include(child1)
       expect(child1.childs).to include(child2)

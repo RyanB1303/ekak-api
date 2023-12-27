@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_27_010106) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_27_013743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -193,6 +193,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_27_010106) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "parent_id"
+    t.string "jenis"
+    t.integer "level", default: 0
     t.index ["parent_id"], name: "index_tematiks_on_parent_id"
     t.index ["tahun_id"], name: "index_tematiks_on_tahun_id"
   end

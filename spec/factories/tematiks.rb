@@ -3,7 +3,9 @@
 # Table name: tematiks
 #
 #  id         :bigint           not null, primary key
+#  jenis      :string
 #  keterangan :string
+#  level      :integer          default(0)
 #  tematik    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
