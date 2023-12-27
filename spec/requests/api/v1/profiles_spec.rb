@@ -22,15 +22,13 @@ RSpec.describe '/api/v1/profiles', type: :request do
   let(:valid_attributes) do
     {
       nama: 'User A',
-      nip: user.nip,
-      opd_id: opd.id
+      user_id: user.id
     }
   end
 
   let(:invalid_attributes) do
     {
-      nama: '',
-      nip: ''
+      nama: ''
     }
   end
 
@@ -53,7 +51,7 @@ RSpec.describe '/api/v1/profiles', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       profile = Profile.create! valid_attributes
-      get api_v1_profile_url(profile.nip), as: :json
+      get api_v1_profile_url(profile), as: :json
       expect(response).to be_successful
     end
   end
@@ -102,7 +100,7 @@ RSpec.describe '/api/v1/profiles', type: :request do
 
       it 'updates the requested profile' do
         profile = Profile.create! valid_attributes
-        patch api_v1_profile_url(profile.nip),
+        patch api_v1_profile_url(profile),
               params: { profile: new_attributes }, headers: valid_headers, as: :json
         profile.reload
         update_res = JSON.parse(response.body).deep_symbolize_keys
@@ -112,7 +110,7 @@ RSpec.describe '/api/v1/profiles', type: :request do
 
       it 'renders a JSON response with the profile' do
         profile = Profile.create! valid_attributes
-        patch api_v1_profile_url(profile.nip),
+        patch api_v1_profile_url(profile),
               params: { profile: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -122,7 +120,7 @@ RSpec.describe '/api/v1/profiles', type: :request do
     context 'with invalid parameters' do
       it 'renders a JSON response with errors for the profile' do
         profile = Profile.create! valid_attributes
-        patch api_v1_profile_url(profile.nip),
+        patch api_v1_profile_url(profile),
               params: { profile: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -134,7 +132,7 @@ RSpec.describe '/api/v1/profiles', type: :request do
     it 'destroys the requested profile' do
       profile = Profile.create! valid_attributes
       expect do
-        delete api_v1_profile_url(profile.nip), headers: valid_headers, as: :json
+        delete api_v1_profile_url(profile), headers: valid_headers, as: :json
       end.to change(Profile, :count).by(-1)
     end
   end

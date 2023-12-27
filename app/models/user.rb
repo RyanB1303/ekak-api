@@ -39,7 +39,9 @@ class User < ApplicationRecord
   attr_writer :login
 
   has_many :api_tokens
+
   has_one :profile, primary_key: :nip, foreign_key: :nip
+  accepts_nested_attributes_for :profile
 
   validates :nip, presence: true, length: { is: 18 }
   validates :email, presence: true

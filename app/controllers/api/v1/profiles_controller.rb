@@ -42,11 +42,11 @@ class Api::V1::ProfilesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_profile
-    @profile = Profile.find_by_nip(params[:id])
+    @profile = Profile.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def profile_params
-    params.require(:profile).permit(:nama, :nip, :opd_id, :aktif)
+    params.require(:profile).permit(:nama, :user_id, :aktif)
   end
 end
