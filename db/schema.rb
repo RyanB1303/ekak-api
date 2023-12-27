@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_27_013743) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_27_073507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -145,6 +145,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_27_013743) do
     t.index ["pohonable_type", "pohonable_id"], name: "index_pohons_on_pohonable"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "nama", null: false
+    t.string "nip", null: false
+    t.bigint "opd_id", null: false
+    t.boolean "aktif", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["opd_id"], name: "index_profiles_on_opd_id"
+  end
+
   create_table "programs", force: :cascade do |t|
     t.string "program"
     t.string "kode_program"
@@ -245,6 +255,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_27_013743) do
   add_foreign_key "opds", "lembagas"
   add_foreign_key "periodes", "lembagas"
   add_foreign_key "pohons", "pohons", column: "parent_id"
+  add_foreign_key "profiles", "opds"
   add_foreign_key "tahuns", "periodes"
   add_foreign_key "tematiks", "tahuns"
   add_foreign_key "tematiks", "tematiks", column: "parent_id"
