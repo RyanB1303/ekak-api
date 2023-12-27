@@ -20,7 +20,10 @@ RSpec.describe '/api/v1/users', type: :request do
     {
       nip: '425831023498077068',
       email: 'test@test.com',
-      password: '12345678'
+      password: '12345678',
+      profile_attributes: {
+        nama: 'test nama'
+      }
     }
   end
 
@@ -62,6 +65,13 @@ RSpec.describe '/api/v1/users', type: :request do
           post api_v1_users_url,
                params: { user: valid_attributes }, headers: valid_headers, as: :json
         end.to change(User, :count).by(1)
+      end
+
+      it 'creates a profile' do
+        expect do
+          post api_v1_users_url,
+               params: { user: valid_attributes }, headers: valid_headers, as: :json
+        end.to change(Profile, :count).by(1)
       end
 
       it 'renders a JSON response with the new api_v1_user' do
