@@ -36,19 +36,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
-  attr_writer :login
 
   has_many :api_tokens
 
-  has_one :profile, primary_key: :nip, foreign_key: :nip
+  has_one :profile
   accepts_nested_attributes_for :profile
 
   validates :nip, presence: true, length: { is: 18 }
   validates :email, presence: true
-
-  def login
-    @login || nip || email
-  end
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

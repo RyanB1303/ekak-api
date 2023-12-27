@@ -1,9 +1,10 @@
 class Api::V1::ProfilesController < ApplicationController
+  before_action :set_user
   before_action :set_profile, only: %i[show update destroy]
 
-  # GET /profiles
+  # GET /users/:user_id/profiles
   def index
-    @profiles = Profile.all
+    @profiles = @user.profile
 
     render json: @profiles
   end
@@ -18,7 +19,8 @@ class Api::V1::ProfilesController < ApplicationController
     @profile = Profile.new(profile_params)
 
     if @profile.save
-      render json: @profile, status: :created, location: [:api, :v1, @profile]
+      render json: @profile, status: :created,
+             location: [:api, :v1, @user, @profile]
     else
       render json: @profile.errors, status: :unprocessable_entity
     end
@@ -40,9 +42,13 @@ class Api::V1::ProfilesController < ApplicationController
 
   private
 
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_profile
-    @profile = Profile.find(params[:id])
+    @profile = @user.profile
   end
 
   # Only allow a list of trusted parameters through.
