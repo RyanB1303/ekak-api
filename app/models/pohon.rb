@@ -27,4 +27,15 @@ class Pohon < ApplicationRecord
 
   belongs_to :pohonable, polymorphic: true
   belongs_to :parent, class_name: 'Pohon', optional: true
+
+  # if pohon validation pass
+  after_validation :generate_level
+
+  def generate_level
+    self.level = if parent_id.blank?
+                   0
+                 else
+                   parent.level + 1
+                 end
+  end
 end
