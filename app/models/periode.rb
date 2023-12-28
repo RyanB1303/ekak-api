@@ -20,6 +20,7 @@
 #  fk_rails_...  (lembaga_id => lembagas.id)
 #
 class Periode < ApplicationRecord
+  has_many :tahuns, dependent: :destroy
   belongs_to :lembaga
 
   validates :tahun_awal, presence: true
