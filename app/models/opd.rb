@@ -21,6 +21,8 @@
 class Opd < ApplicationRecord
   belongs_to :lembaga
   has_many :tujuans, as: :tujuanable
+  has_many :profiles
+  has_many :users, through: :profiles
 
   validates :nama_opd, presence: true
   validates :kode_opd, presence: true

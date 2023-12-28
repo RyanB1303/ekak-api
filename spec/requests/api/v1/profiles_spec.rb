@@ -17,11 +17,13 @@ RSpec.describe '/api/v1/profiles', type: :request do
   # Profile. As you add validations to Profile, be sure to
   # adjust the attributes here as well.
   let(:user) { create(:user) }
+  let(:opd) { create(:opd) }
 
   let(:valid_attributes) do
     {
       nama: 'User A',
-      user_id: user.id
+      user_id: user.id,
+      opd_id: opd.id
     }
   end
 

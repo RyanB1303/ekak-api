@@ -36,6 +36,8 @@ user_super_admin_kab = User.create(id: 2, email: 'admin@kab_madiun.com', nip: 'a
                                    password: '12345678')
 
 profile_super_admin_kota = Profile.create(id: 1, nama: 'Super Admin Kota Madiun', user_id: user_super_admin_kota.id,
+                                          opd_id: opd_super_admin_kota.id,
                                           aktif: true)
 profile_super_admin_kab = Profile.create(id: 2, nama: 'Super Admin Kabupaten Madiun', user_id: user_super_admin_kab.id,
+                                         opd_id: opd_super_admin_kab.id,
                                          aktif: true)
