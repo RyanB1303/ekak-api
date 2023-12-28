@@ -22,6 +22,7 @@ periode_kota = Periode.create(id: 1, tahun_awal: 2025, tahun_akhir: 2030, nama_p
 periode_kab = Periode.create(id: 2, tahun_awal: 2025, tahun_akhir: 2030, nama_periode: 'Periode 2025-2030',
                              lembaga_id: kab_madiun.id)
 
+# Tahun dimiliki oleh periode per lembaga, memungkinkan pemisahan tahun per Kota / Kab
 tahun_kota = (2025..2030).each { |th| Tahun.create(tahun: th, kelompok_anggaran: 'murni', periode_id: periode_kota.id) }
 tahun_kab = (2025..2030).each { |th| Tahun.create(tahun: th, kelompok_anggaran: 'murni', periode_id: periode_kab.id) }
 
