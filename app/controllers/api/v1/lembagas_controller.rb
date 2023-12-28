@@ -1,4 +1,4 @@
-class Api::V1::LembagasController < Api::V1::AuthenticatedController
+class Api::V1::LembagasController < ApplicationController
   before_action :set_lembaga, only: %i[show update destroy]
 
   def index

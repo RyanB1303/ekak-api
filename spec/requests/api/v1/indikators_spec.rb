@@ -54,7 +54,7 @@ RSpec.describe '/api/v1/indikators', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       indikator = Indikator.create! valid_attributes
-      get api_v1_indikator_url(indikator), as: :json
+      get api_v1_indikator_url(indikator), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end

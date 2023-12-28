@@ -51,7 +51,7 @@ RSpec.describe '/api/v1/profiles', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       profile = Profile.create! valid_attributes
-      get api_v1_user_profile_url(user, profile), as: :json
+      get api_v1_user_profile_url(user, profile), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end

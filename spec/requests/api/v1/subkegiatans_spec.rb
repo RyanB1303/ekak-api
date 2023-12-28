@@ -35,7 +35,8 @@ RSpec.describe '/api/v1/subkegiatans', type: :request do
   # SubkegiatansController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    {}
+    user = create(:user)
+    sign_in user
   end
 
   describe 'GET /index' do
@@ -49,7 +50,7 @@ RSpec.describe '/api/v1/subkegiatans', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       subkegiatan = Subkegiatan.create! valid_attributes
-      get api_v1_subkegiatan_url(subkegiatan), as: :json
+      get api_v1_subkegiatan_url(subkegiatan), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end

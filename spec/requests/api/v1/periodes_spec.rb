@@ -54,7 +54,7 @@ RSpec.describe '/api/v1/periodes', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       periode = Periode.create! valid_attributes
-      get api_v1_periode_url(periode), as: :json
+      get api_v1_periode_url(periode), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end

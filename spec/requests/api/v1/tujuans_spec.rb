@@ -51,7 +51,7 @@ RSpec.describe '/api/v1/tujuans', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       tujuan = Tujuan.create! valid_attributes
-      get api_v1_tujuan_url(tujuan), as: :json
+      get api_v1_tujuan_url(tujuan), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end

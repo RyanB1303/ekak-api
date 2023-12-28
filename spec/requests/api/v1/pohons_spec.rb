@@ -52,7 +52,7 @@ RSpec.describe '/api/v1/pohons', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       pohon = Pohon.create! valid_attributes
-      get api_v1_pohon_url(pohon), as: :json
+      get api_v1_pohon_url(pohon), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end

@@ -50,7 +50,7 @@ RSpec.describe '/api/v1/kegiatans', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       kegiatan = Kegiatan.create! valid_attributes
-      get api_v1_kegiatan_url(kegiatan), as: :json
+      get api_v1_kegiatan_url(kegiatan), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end

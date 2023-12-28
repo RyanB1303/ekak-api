@@ -50,7 +50,7 @@ RSpec.describe '/api/v1/programs', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       program = Program.create! valid_attributes
-      get api_v1_program_url(program), as: :json
+      get api_v1_program_url(program), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end

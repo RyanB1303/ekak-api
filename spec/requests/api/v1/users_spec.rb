@@ -39,7 +39,8 @@ RSpec.describe '/api/v1/users', type: :request do
   # Api::V1::UsersController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    {}
+    user = create(:user)
+    sign_in user
   end
 
   describe 'GET /index' do
@@ -53,7 +54,7 @@ RSpec.describe '/api/v1/users', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       user = User.create! valid_attributes
-      get api_v1_user_url(user), as: :json
+      get api_v1_user_url(user), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -64,7 +65,7 @@ RSpec.describe '/api/v1/users', type: :request do
         expect do
           post api_v1_users_url,
                params: { user: valid_attributes }, headers: valid_headers, as: :json
-        end.to change(User, :count).by(1)
+        end.to change(User, :count).by(2)
       end
 
       it 'creates a profile' do
@@ -136,11 +137,12 @@ RSpec.describe '/api/v1/users', type: :request do
   end
 
   describe 'DELETE /destroy' do
+    # user have 2 record, the admin and the created user
     it 'destroys the requested api_v1_user' do
       user = User.create! valid_attributes
       expect do
         delete api_v1_user_url(user), headers: valid_headers, as: :json
-      end.to change(User, :count).by(-1)
+      end.to change(User, :count).by(0)
     end
   end
 end
