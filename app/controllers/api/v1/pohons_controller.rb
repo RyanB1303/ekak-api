@@ -47,6 +47,6 @@ class Api::V1::PohonsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def pohon_params
-    params.require(:pohon).permit(:pohonable_id, :pohonable_type, :keterangan)
+    params.require(:pohon).permit(:pohonable_id, :pohonable_type, :keterangan, :tahun_id, :parent_id)
   end
 end

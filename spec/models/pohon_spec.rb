@@ -11,11 +11,13 @@
 #  updated_at     :datetime         not null
 #  parent_id      :bigint
 #  pohonable_id   :bigint
+#  tahun_id       :bigint
 #
 # Indexes
 #
 #  index_pohons_on_parent_id  (parent_id)
 #  index_pohons_on_pohonable  (pohonable_type,pohonable_id)
+#  index_pohons_on_tahun_id   (tahun_id)
 #
 # Foreign Keys
 #
@@ -24,6 +26,7 @@
 require 'rails_helper'
 
 RSpec.describe Pohon, type: :model do
+  it { should belong_to :tahun }
   it { should belong_to :pohonable }
 
   context 'parent child pohon' do
@@ -33,13 +36,16 @@ RSpec.describe Pohon, type: :model do
     it 'should create childs self referential' do
       pohon_parent = Pohon.create(pohonable_type: 'Tematik',
                                   pohonable_id: tematik.id,
+                                  tahun: tematik.tahun,
                                   role: 'tematik-kota')
       pohon_childs = [Pohon.create(pohonable_type: 'Tematik',
                                    pohonable_id: sub_tematik.id,
                                    role: 'subtematik-kota',
+                                   tahun: sub_tematik.tahun,
                                    parent: pohon_parent),
                       Pohon.create(pohonable_type: 'Tematik',
                                    pohonable_id: sub_tematik.id,
+                                   tahun: sub_tematik.tahun,
                                    role: 'subtematik-kota',
                                    parent: pohon_parent)]
 
@@ -53,11 +59,13 @@ RSpec.describe Pohon, type: :model do
 
     it 'auto generate level of childs' do
       pohon = Pohon.create(pohonable_type: 'Tematik',
+                           tahun: tematik.tahun,
                            pohonable_id: tematik.id)
 
       sub_tema = Tematik.create(tematik: 'subtematik', tahun: tematik.tahun, parent: tematik)
       pohon_childs = Pohon.create(pohonable_type: 'Tematik',
                                   pohonable_id: sub_tema.id,
+                                  tahun: sub_tema.tahun,
                                   parent: pohon)
 
       expect(pohon.level).to eq(0)
@@ -69,6 +77,7 @@ RSpec.describe Pohon, type: :model do
     let(:tematik) { create(:tematik) }
     it 'generate role by level and opd id' do
       pohon = Pohon.create(pohonable_type: 'Tematik',
+                           tahun: tematik.tahun,
                            pohonable_id: tematik.id)
 
       pending

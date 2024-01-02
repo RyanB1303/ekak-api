@@ -11,11 +11,13 @@
 #  updated_at     :datetime         not null
 #  parent_id      :bigint
 #  pohonable_id   :bigint
+#  tahun_id       :bigint
 #
 # Indexes
 #
 #  index_pohons_on_parent_id  (parent_id)
 #  index_pohons_on_pohonable  (pohonable_type,pohonable_id)
+#  index_pohons_on_tahun_id   (tahun_id)
 #
 # Foreign Keys
 #
@@ -27,5 +29,6 @@ FactoryBot.define do
     pohonable_id { 1 }
     role { 'MyString' }
     keterangan { 'MyString' }
+    tahun_id { 1 }
   end
 end

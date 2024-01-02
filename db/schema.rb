@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_28_063001) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_02_074726) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -141,8 +141,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_063001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "parent_id"
+    t.bigint "tahun_id"
     t.index ["parent_id"], name: "index_pohons_on_parent_id"
     t.index ["pohonable_type", "pohonable_id"], name: "index_pohons_on_pohonable"
+    t.index ["tahun_id"], name: "index_pohons_on_tahun_id"
   end
 
   create_table "profiles", force: :cascade do |t|

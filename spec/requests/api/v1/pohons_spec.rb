@@ -16,12 +16,15 @@ RSpec.describe '/api/v1/pohons', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Pohon. As you add validations to Pohon, be sure to
   # adjust the attributes here as well.
+  let(:tahun) { create(:tahun) }
   let(:valid_attributes) do
     tematik = create(:tematik)
     {
       pohonable_type: 'Tematik',
       pohonable_id: tematik.id,
-      keterangan: 'test'
+      keterangan: 'test',
+      tahun_id: tahun.id,
+      parent_id: ''
     }
   end
 
