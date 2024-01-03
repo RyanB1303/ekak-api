@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   }
   namespace :api do
     namespace :v1 do
+      resources :kelompok_anggarans
       resources :tematiks
       resources :users do
         resources :profiles
