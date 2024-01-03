@@ -8,12 +8,10 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  lembaga_id    :bigint           not null
-#  tahun_id      :bigint
 #
 # Indexes
 #
 #  index_kelompok_anggarans_on_lembaga_id  (lembaga_id)
-#  index_kelompok_anggarans_on_tahun_id    (tahun_id)
 #
 # Foreign Keys
 #
@@ -23,24 +21,27 @@ require 'rails_helper'
 
 RSpec.describe KelompokAnggaran, type: :model do
   it { should belong_to :lembaga }
-  it { should belong_to :tahun }
+  it { should have_many :tahuns }
   it { should validate_presence_of :nama_kelompok }
 
-  it '#tahun_anggaran' do
-    tahun = create(:tahun, tahun: 2025)
+  it '#nama_lembaga' do
     lembaga = create(:lembaga, nama_lembaga: 'Kota Madiun')
     kelompok = KelompokAnggaran.create(nama_kelompok: 'Murni',
-                                       lembaga:,
-                                       tahun:)
-    expect(kelompok.tahun_anggaran).to eq '2025 Murni'
+                                       lembaga:)
+    expect(kelompok.nama_lembaga).to eq 'Kota Madiun'
   end
 
-  it '#nama_lembaga' do
-    tahun = create(:tahun, tahun: 2025)
+  it 'show all tahun dalam satu kota' do
     lembaga = create(:lembaga, nama_lembaga: 'Kota Madiun')
     kelompok = KelompokAnggaran.create(nama_kelompok: 'Murni',
-                                       lembaga:,
-                                       tahun:)
-    expect(kelompok.nama_lembaga).to eq 'Kota Madiun'
+                                       lembaga:)
+    list_tahun = (2025..2027).each do |th|
+      create(:tahun, kelompok_anggaran: kelompok, tahun: th)
+      create(:tahun, kelompok_anggaran: kelompok, tahun: th)
+      create(:tahun, kelompok_anggaran: kelompok, tahun: th)
+      create(:tahun, kelompok_anggaran: kelompok, tahun: th)
+    end
+
+    expect(kelompok.all_tahuns).to eq ['2025 Murni', '2026 Murni', '2027 Murni']
   end
 end

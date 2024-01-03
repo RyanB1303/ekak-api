@@ -16,20 +16,20 @@ RSpec.describe '/api/v1/tahuns', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Tahun. As you add validations to Tahun, be sure to
   # adjust the attributes here as well.
+  let(:kelompok_anggaran) { create(:kelompok_anggaran) }
   let(:valid_attributes) do
     periode = create(:periode)
     {
       tahun: 2025,
-      kelompok_anggaran: 'Murni',
       keterangan: 'test',
-      periode_id: periode.id
+      periode_id: periode.id,
+      kelompok_anggaran_id: kelompok_anggaran.id
     }
   end
 
   let(:invalid_attributes) do
     {
       tahun: '',
-      kelompok_anggaran: 'Murni',
       keterangan: 'test',
       periode_id: ''
     }

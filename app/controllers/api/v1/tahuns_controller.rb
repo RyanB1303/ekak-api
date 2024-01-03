@@ -47,6 +47,6 @@ class Api::V1::TahunsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def tahun_params
-    params.require(:tahun).permit(:tahun, :kelompok_anggaran, :keterangan, :periode_id)
+    params.require(:tahun).permit(:tahun, :kelompok_anggaran, :keterangan, :periode_id, :kelompok_anggaran_id)
   end
 end

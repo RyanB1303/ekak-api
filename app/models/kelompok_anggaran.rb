@@ -8,12 +8,10 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  lembaga_id    :bigint           not null
-#  tahun_id      :bigint
 #
 # Indexes
 #
 #  index_kelompok_anggarans_on_lembaga_id  (lembaga_id)
-#  index_kelompok_anggarans_on_tahun_id    (tahun_id)
 #
 # Foreign Keys
 #
@@ -21,15 +19,15 @@
 #
 class KelompokAnggaran < ApplicationRecord
   belongs_to :lembaga
-  belongs_to :tahun
+  has_many :tahuns
 
   validates :nama_kelompok, presence: true
 
-  def tahun_anggaran
-    "#{tahun.tahun} #{nama_kelompok}"
-  end
-
   def nama_lembaga
     lembaga.nama_lembaga
+  end
+
+  def all_tahuns
+    ['2025 Murni', '2026 Murni', '2027 Murni']
   end
 end

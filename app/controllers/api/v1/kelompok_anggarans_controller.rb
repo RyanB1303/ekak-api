@@ -49,7 +49,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def kelompok_anggaran_params
-        params.require(:kelompok_anggaran).permit(:nama_kelompok, :keterangan, :lembaga_id, :tahun_id)
+        params.require(:kelompok_anggaran).permit(:nama_kelompok, :keterangan, :lembaga_id)
       end
     end
   end

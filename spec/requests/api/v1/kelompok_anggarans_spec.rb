@@ -24,8 +24,7 @@ RSpec.describe '/api/v1/kelompok_anggarans', type: :request do
     {
       nama_kelompok: 'Murni',
       keterangan: 'Contoh',
-      lembaga_id: lembaga.id,
-      tahun_id: tahun.id
+      lembaga_id: lembaga.id
     }
   end
 
@@ -33,8 +32,7 @@ RSpec.describe '/api/v1/kelompok_anggarans', type: :request do
     {
       nama_kelompok: '',
       keterangan: 'Contoh',
-      lembaga_id: lembaga.id,
-      tahun_id: tahun.id
+      lembaga_id: lembaga.id
     }
   end
 

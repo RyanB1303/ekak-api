@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_03_055949) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_03_065805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,9 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_055949) do
     t.bigint "lembaga_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "tahun_id"
     t.index ["lembaga_id"], name: "index_kelompok_anggarans_on_lembaga_id"
-    t.index ["tahun_id"], name: "index_kelompok_anggarans_on_tahun_id"
   end
 
   create_table "lembagas", force: :cascade do |t|
@@ -189,11 +187,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_055949) do
 
   create_table "tahuns", force: :cascade do |t|
     t.integer "tahun"
-    t.string "kelompok_anggaran"
     t.string "keterangan"
     t.bigint "periode_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "kelompok_anggaran_id"
+    t.index ["kelompok_anggaran_id"], name: "index_tahuns_on_kelompok_anggaran_id"
     t.index ["periode_id"], name: "index_tahuns_on_periode_id"
   end
 
