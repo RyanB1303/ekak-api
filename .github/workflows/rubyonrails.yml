@@ -23,20 +23,18 @@ jobs:
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
     env:
-      RAILS_ENV: test
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }} 
-      DATABASE_URL: "postgres://rails:password@localhost:5432/ekak_api_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
         with:
           bundler-cache: true
-      # Add or replace database setup steps here
-      - name: Setup test database
-        run: bin/rails db:setup
-      # Add or replace test runners here
-      - name: Run tests
-        run: bundle exec rspec
+      - name: Rails Test
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          RAILS_ENV: test
+          DATABASE_URL: "postgres://rails:password@localhost:5432/ekak_api_test"
+        run: |
+          bin/rails db:setup
+          bundle exec rspec
