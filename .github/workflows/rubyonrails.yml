@@ -17,12 +17,14 @@ jobs:
       postgres:
         image: postgres:14-alpine
         ports:
-          - "5432:5432"
+          - "54321:5432"
         env:
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
       redis:
         image: redis:alpine
+        ports:
+          - "63790:6379"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -34,8 +36,8 @@ jobs:
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           RAILS_ENV: test
-          REDIS_URL: "redis://redis:6379/"
-          DATABASE_URL: "postgres://rails:password@localhost:5432"
+          REDIS_URL: "redis://redis:63790/"
+          DATABASE_URL: "postgres://rails:password@localhost:54321"
         run: |
           bin/rails db:setup
           bundle exec rspec
