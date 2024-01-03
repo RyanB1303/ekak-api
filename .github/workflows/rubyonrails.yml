@@ -22,7 +22,7 @@ jobs:
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
       redis:
-        image: redis:alpine
+        image: redis
         ports:
           - "63790:6379"
     steps:
