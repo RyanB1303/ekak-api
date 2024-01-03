@@ -36,7 +36,7 @@ jobs:
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           RAILS_ENV: test
-          REDIS_URL: "redis://redis:63790/"
+          REDIS_URL: "redis://localhost:63790/0"
           DATABASE_URL: "postgres://rails:password@localhost:54321"
         run: |
           bin/rails db:setup
