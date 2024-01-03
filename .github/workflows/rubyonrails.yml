@@ -22,7 +22,6 @@ jobs:
           POSTGRES_DB: ekak_api_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
-    env:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
