@@ -20,6 +20,8 @@
 #
 class Tahun < ApplicationRecord
   belongs_to :periode
+  # unique by tahun and kelompok_anggaran_id
+  has_many :kelompok_anggarans
 
   validates :tahun, presence: true
 end

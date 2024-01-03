@@ -22,5 +22,6 @@ require 'rails_helper'
 
 RSpec.describe Tahun, type: :model do
   it { should belong_to :periode }
+  it { should have_many :kelompok_anggarans }
   it { should validate_presence_of :tahun }
 end
