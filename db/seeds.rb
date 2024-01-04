@@ -31,15 +31,15 @@ periode_kab = Periode.create(id: 2, tahun_awal: 2025, tahun_akhir: 2030, nama_pe
 
 # Tahun dimiliki oleh periode per lembaga, memungkinkan pemisahan tahun per Kota / Kab
 (2025..2030).each do |th|
-  Tahun.create(tahun: th, kelompok_anggaran: 'murni', periode_id: periode_kota.id,
-               kelompok_anggaran_id: kelompok_murni_kota.id)
-  Tahun.create(tahun: th, kelompok_anggaran: 'perubahan', periode_id: periode_kota.id,
-               kelompok_anggaran_id: kelompok_perubahan_kota.id)
+  Tahun.create(tahun: th, periode_id: periode_kota.id,
+               kelompok_anggaran: kelompok_murni_kota)
+  Tahun.create(tahun: th, periode_id: periode_kota.id,
+               kelompok_anggaran: kelompok_perubahan_kota)
 
-  Tahun.create(tahun: th, kelompok_anggaran: 'murni', periode_id: periode_kab.id,
+  Tahun.create(tahun: th, periode_id: periode_kab.id,
                kelompok_anggaran_id: kelompok_murni_kab.id)
-  Tahun.create(tahun: th, kelompok_anggaran: 'perubahan', periode_id: periode_kab.id,
-               kelompok_anggaran_id: kelompok_perubahan_kab.id)
+  Tahun.create(tahun: th, periode_id: periode_kab.id,
+               kelompok_anggaran: kelompok_perubahan_kab)
 end
 
 opd_super_admin_kota = Opd.create(id: 1, nama_opd: 'Super Admin Kota Madiun', kode_opd: '000',

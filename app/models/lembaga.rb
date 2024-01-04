@@ -13,6 +13,7 @@ class Lembaga < ApplicationRecord
   has_many :tujuans, as: :tujuanable
   has_many :periodes, dependent: :destroy
   has_many :opds, dependent: :destroy
+  has_many :kelompok_anggarans, dependent: :destroy
 
   validates :nama_lembaga, presence: true
 end
