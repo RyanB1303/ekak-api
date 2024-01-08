@@ -24,7 +24,6 @@ RSpec.describe '/strategics', type: :request do
     {
       strategi: 'contoh a',
       keterangan: 'test',
-      role: 'Strategic',
       from_kota: false,
       opd_id: opd.id,
       tahun_id: tahun.id

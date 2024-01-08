@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_08_002757) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_08_004848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -179,14 +179,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_002757) do
   create_table "strategics", force: :cascade do |t|
     t.string "strategi"
     t.string "keterangan"
-    t.bigint "tahun_id", null: false
-    t.string "role"
-    t.boolean "from_kota"
+    t.boolean "from_kota", default: true
     t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "opd_id"
+    t.bigint "tahun_id"
     t.index ["opd_id"], name: "index_strategics_on_opd_id"
+    t.index ["parent_id"], name: "index_strategics_on_parent_id"
     t.index ["tahun_id"], name: "index_strategics_on_tahun_id"
   end
 
@@ -284,7 +284,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_002757) do
   add_foreign_key "periodes", "lembagas"
   add_foreign_key "pohons", "pohons", column: "parent_id"
   add_foreign_key "profiles", "users"
-  add_foreign_key "strategics", "tahuns"
+  add_foreign_key "strategics", "strategics", column: "parent_id"
   add_foreign_key "tahuns", "periodes"
   add_foreign_key "tematiks", "tahuns"
   add_foreign_key "tematiks", "tematiks", column: "parent_id"
