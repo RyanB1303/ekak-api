@@ -7,9 +7,9 @@
 name: "Ruby on Rails CI"
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -39,6 +39,5 @@ jobs:
           REDIS_URL: "redis://localhost:63790/0"
           DATABASE_URL: "postgres://rails:password@localhost:54321"
         run: |
-          bin/rails db:create
-          bin/rails db:migrate
+          bin/rails db:setup
           bundle exec rspec

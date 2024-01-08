@@ -7,13 +7,13 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-Lembaga.destroy_all
-Periode.destroy_all
-KelompokAnggaran.destroy_all
-Tahun.destroy_all
-Opd.destroy_all
-User.destroy_all
-Profile.destroy_all
+# Lembaga.destroy_all
+# Periode.destroy_all
+# KelompokAnggaran.destroy_all
+# Tahun.destroy_all
+# Opd.destroy_all
+# User.destroy_all
+# Profile.destroy_all
 
 kota_madiun = Lembaga.create(id: 1, nama_lembaga: 'Kota Madiun', kode_lembaga: '100', active: true)
 kab_madiun = Lembaga.create(id: 2, nama_lembaga: 'Kabupaten Madiun', kode_lembaga: '101', active: true)
