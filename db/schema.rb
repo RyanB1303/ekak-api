@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_08_004848) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_08_025326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -176,6 +176,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_004848) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "role"
+    t.integer "role_scope", default: 1
+    t.integer "role_type", default: 1
+    t.integer "level", default: 0
+    t.string "keterangan"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "strategics", force: :cascade do |t|
     t.string "strategi"
     t.string "keterangan"
@@ -185,8 +195,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_004848) do
     t.datetime "updated_at", null: false
     t.bigint "opd_id"
     t.bigint "tahun_id"
+    t.bigint "role_id"
     t.index ["opd_id"], name: "index_strategics_on_opd_id"
     t.index ["parent_id"], name: "index_strategics_on_parent_id"
+    t.index ["role_id"], name: "index_strategics_on_role_id"
     t.index ["tahun_id"], name: "index_strategics_on_tahun_id"
   end
 

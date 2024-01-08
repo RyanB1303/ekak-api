@@ -10,12 +10,14 @@
 #  updated_at :datetime         not null
 #  opd_id     :bigint
 #  parent_id  :bigint
+#  role_id    :bigint
 #  tahun_id   :bigint
 #
 # Indexes
 #
 #  index_strategics_on_opd_id     (opd_id)
 #  index_strategics_on_parent_id  (parent_id)
+#  index_strategics_on_role_id    (role_id)
 #  index_strategics_on_tahun_id   (tahun_id)
 #
 # Foreign Keys

@@ -47,6 +47,6 @@ class StrategicsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def strategic_params
-    params.require(:strategic).permit(:strategi, :keterangan, :tahun_id, :opd_id, :from_kota, :parent_id)
+    params.require(:strategic).permit(:strategi, :keterangan, :tahun_id, :opd_id, :from_kota, :parent_id, :role_id)
   end
 end

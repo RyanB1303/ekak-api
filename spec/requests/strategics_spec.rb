@@ -18,6 +18,7 @@ RSpec.describe '/strategics', type: :request do
   # adjust the attributes here as well.
   let(:tahun) { create(:tahun, tahun: 2025) }
   let(:opd) { create(:opd) }
+  let(:role) { create(:role) }
 
   # TODO: test parent child request
   let(:valid_attributes) do
@@ -26,7 +27,8 @@ RSpec.describe '/strategics', type: :request do
       keterangan: 'test',
       from_kota: false,
       opd_id: opd.id,
-      tahun_id: tahun.id
+      tahun_id: tahun.id,
+      role_id: role.id
     }
   end
 

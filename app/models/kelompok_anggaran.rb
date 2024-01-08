@@ -27,6 +27,7 @@ class KelompokAnggaran < ApplicationRecord
     lembaga.nama_lembaga
   end
 
+  # TODO: implement this
   def all_tahuns
     ['2025 Murni', '2026 Murni', '2027 Murni']
   end
