@@ -57,6 +57,7 @@ group :development do
   gem 'solargraph'
 end
 
+gem 'active_model_serializers', '~> 0.10.14'
 gem 'clowne'
 gem 'devise'
 gem 'devise-jwt'
