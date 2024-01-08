@@ -12,7 +12,7 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe '/strategics', type: :request do
+RSpec.describe '/api/v1/strategics', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Strategic. As you add validations to Strategic, be sure to
   # adjust the attributes here as well.
@@ -51,7 +51,7 @@ RSpec.describe '/strategics', type: :request do
   describe 'GET /index' do
     it 'renders a successful response' do
       Strategic.create! valid_attributes
-      get strategics_url, headers: valid_headers, as: :json
+      get api_v1_strategics_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -59,7 +59,7 @@ RSpec.describe '/strategics', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       strategic = Strategic.create! valid_attributes
-      get strategic_url(strategic), headers: valid_headers, as: :json
+      get api_v1_strategic_url(strategic), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -68,13 +68,13 @@ RSpec.describe '/strategics', type: :request do
     context 'with valid parameters' do
       it 'creates a new Strategic' do
         expect do
-          post strategics_url,
+          post api_v1_strategics_url,
                params: { strategic: valid_attributes }, headers: valid_headers, as: :json
         end.to change(Strategic, :count).by(1)
       end
 
       it 'renders a JSON response with the new strategic' do
-        post strategics_url,
+        post api_v1_strategics_url,
              params: { strategic: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -84,13 +84,13 @@ RSpec.describe '/strategics', type: :request do
     context 'with invalid parameters' do
       it 'does not create a new Strategic' do
         expect do
-          post strategics_url,
+          post api_v1_strategics_url,
                params: { strategic: invalid_attributes }, as: :json
         end.to change(Strategic, :count).by(0)
       end
 
       it 'renders a JSON response with errors for the new strategic' do
-        post strategics_url,
+        post api_v1_strategics_url,
              params: { strategic: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -110,7 +110,7 @@ RSpec.describe '/strategics', type: :request do
 
       it 'updates the requested strategic with change opd' do
         strategic = Strategic.create! valid_attributes
-        patch strategic_url(strategic),
+        patch api_v1_strategic_url(strategic),
               params: { strategic: new_attributes }, headers: valid_headers, as: :json
         strategic.reload
         update_res = JSON.parse(response.body).deep_symbolize_keys
@@ -120,7 +120,7 @@ RSpec.describe '/strategics', type: :request do
 
       it 'renders a JSON response with the strategic' do
         strategic = Strategic.create! valid_attributes
-        patch strategic_url(strategic),
+        patch api_v1_strategic_url(strategic),
               params: { strategic: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -130,7 +130,7 @@ RSpec.describe '/strategics', type: :request do
     context 'with invalid parameters' do
       it 'renders a JSON response with errors for the strategic' do
         strategic = Strategic.create! valid_attributes
-        patch strategic_url(strategic),
+        patch api_v1_strategic_url(strategic),
               params: { strategic: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -142,7 +142,7 @@ RSpec.describe '/strategics', type: :request do
     it 'destroys the requested strategic' do
       strategic = Strategic.create! valid_attributes
       expect do
-        delete strategic_url(strategic), headers: valid_headers, as: :json
+        delete api_v1_strategic_url(strategic), headers: valid_headers, as: :json
       end.to change(Strategic, :count).by(-1)
     end
   end
