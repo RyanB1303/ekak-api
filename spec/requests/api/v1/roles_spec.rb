@@ -12,7 +12,7 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe '/roles', type: :request do
+RSpec.describe 'api/v1/roles', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Role. As you add validations to Role, be sure to
   # adjust the attributes here as well.
@@ -45,7 +45,7 @@ RSpec.describe '/roles', type: :request do
   describe 'GET /index' do
     it 'renders a successful response' do
       Role.create! valid_attributes
-      get roles_url, headers: valid_headers, as: :json
+      get api_v1_roles_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe '/roles', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       role = Role.create! valid_attributes
-      get role_url(role), as: :json, headers: valid_headers
+      get api_v1_role_url(role), as: :json, headers: valid_headers
       expect(response).to be_successful
     end
   end
@@ -62,13 +62,13 @@ RSpec.describe '/roles', type: :request do
     context 'with valid parameters' do
       it 'creates a new Role' do
         expect do
-          post roles_url,
+          post api_v1_roles_url,
                params: { role: valid_attributes }, headers: valid_headers, as: :json
         end.to change(Role, :count).by(1)
       end
 
       it 'renders a JSON response with the new role' do
-        post roles_url,
+        post api_v1_roles_url,
              params: { role: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -78,13 +78,13 @@ RSpec.describe '/roles', type: :request do
     context 'with invalid parameters' do
       it 'does not create a new Role' do
         expect do
-          post roles_url,
+          post api_v1_roles_url,
                params: { role: invalid_attributes }, as: :json
         end.to change(Role, :count).by(0)
       end
 
       it 'renders a JSON response with errors for the new role' do
-        post roles_url,
+        post api_v1_roles_url,
              params: { role: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -102,7 +102,7 @@ RSpec.describe '/roles', type: :request do
 
       it 'updates the requested role' do
         role = Role.create! valid_attributes
-        patch role_url(role),
+        patch api_v1_role_url(role),
               params: { role: new_attributes }, headers: valid_headers, as: :json
         role.reload
         expect(role.role).to eq 'Strategic-Kota'
@@ -110,7 +110,7 @@ RSpec.describe '/roles', type: :request do
 
       it 'renders a JSON response with the role' do
         role = Role.create! valid_attributes
-        patch role_url(role),
+        patch api_v1_role_url(role),
               params: { role: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -120,7 +120,7 @@ RSpec.describe '/roles', type: :request do
     context 'with invalid parameters' do
       it 'renders a JSON response with errors for the role' do
         role = Role.create! valid_attributes
-        patch role_url(role),
+        patch api_v1_role_url(role),
               params: { role: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -132,7 +132,7 @@ RSpec.describe '/roles', type: :request do
     it 'destroys the requested role' do
       role = Role.create! valid_attributes
       expect do
-        delete role_url(role), headers: valid_headers, as: :json
+        delete api_v1_role_url(role), headers: valid_headers, as: :json
       end.to change(Role, :count).by(-1)
     end
   end
